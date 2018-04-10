@@ -22,8 +22,9 @@
 ##### 方案实现
 一、子进程怎么拉起父进程<br/>
     ![C++socket流程图](https://upload-images.jianshu.io/upload_images/5361549-fc97905a4f824636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-  1.socket长连接
-  2.通过am命令
+  
+  1. socket长连接
+  2. 通过am命令
    ```
    execlp("am","am","startservice","--user",g_userId,"-n",SERVICE_NAME,(char*)NULL);
    ```
