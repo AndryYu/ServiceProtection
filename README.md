@@ -32,6 +32,23 @@
 三、如何保证Native进程的唯一<br/>
   从可扩展性和进程唯一等多方面考虑，将Native进程设计成C/S结构模式，主进程与Native进程通过Localsocket进行通信。在Native进程中利用Localsocket保证进程的唯一性，不至于出现创建多个Native进程以及Native进程变成僵尸进程等问题。
 
+### 2.利用fork子进程保证双向守护
+
+##### 结论：
+1.Fork出来的进程名字与父进程名字相同。
+2.Fork函数调用的时候，会复制父进程的全部内存。因为父进程一定是我们需要保证常驻的java进程，它在初始化的时候是fork的一个zygote进程。即使咋应用刚初始化的时候fork，进程里面是有一个java虚拟机的内存在里面，最少一二十M是有的。Fork出来子进程多的内存，最后都会算到我们自己应用的内存中。
+
+
+
+
+### 3.双管道互相监听
+##### 3.1  Android 5.0 以下
+
+##### 3.2  Android 5.0
+
+##### 3.3  Android 5.1
+
+##### 3.4  Android 6.0
 
 ## Android 5.0
 Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式失效。系统在 Android5.0 以上版本提供了 JobScheduler 接口，系统会定时调用该进程以使应用进行一些逻辑操作
@@ -45,8 +62,11 @@ Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式
 该方案在 Android5.0 以上版本中不受 forcestop 影响，被强制停止的应用依然可以被拉活，在 Android5.0 以上版本拉活效果非常好。仅在小米手机可能会出现有时无法拉活的问题。
 
 
-## Android 7.0
-1.
+## Android 6.0
+### 1.Doze模式讲解
+ 	Doze，即休眠、打盹之意，是谷歌在Android M(6.0)提出为了延长电池使用寿命的一种节能方式，它的核心思想是在手机处于屏幕熄灭、不插电或静止不动一段时间后，手机会自动进入Doze模式，处于Doze模式的手机将停止所有非系统应用的WalkLocks、网络访问、闹钟、GPS/WIFI扫描、JobSheduler活动。当进入Doze模式的手机屏幕被点亮、移动或充电时，会立即从Doze模式恢复到正常，系统继续执行被Doze模式"冷冻"的各项活着。换而言之，Doze模式不会杀死进程，只是停止了进程相关的耗电活动，使其进入"休眠"状态。
+至Android N(7.0)后，谷歌进一步对Doze休眠机制进行了优化，休眠机制的应用场景和使用规则进行了扩展。Doze在Android 6.0中需要将手机平行放置一段时间才能开启，在7.0中则可随时开启。
+   因此，对于Android 5.0，JobSheduler的唤醒是非常有效的；对于Android 6.0，虽然谷歌引入了Doze模式，但通常很难真正进入Doze模式，所以JobSheduler的唤醒依然有效；对于Android 7.0，JobSheduler的唤醒会有一定的影响，我们可以在电池管理中给APP开绿色通道，防止手机Doze模式后阻止APP使用JobSheduler功能。注：如果遇到深度定制机型，这就要看运气了...
 
 ## 其他方法（针对当前应用不适用）
 1. 利用Activity提升权限，
@@ -55,4 +75,5 @@ Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式
 
 
 ## 参考文献
-[Android中的各种保活1](https://blog.csdn.net/zhangweiwtmdbf/article/details/52369276)
+* [Android中的各种保活1](https://blog.csdn.net/zhangweiwtmdbf/article/details/52369276)
+* [Android 进程常驻----MarsDaemon使用说明](https://blog.csdn.net/marswin89/article/details/50917098)
