@@ -14,9 +14,11 @@ android {
             cmake {
                 cppFlags "-fexceptions"
                 cppFlags "-DDebug" //加上这个代表c++代码里面能打印log
+                abiFilters 'armeabi','armeabi-v7a','arm64-v8a','x86','x86_64'
             }
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,7 +27,7 @@ android {
     }
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            path 'CMakeLists.txt'
         }
     }
 }

@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.km.ndk.R;
-import com.example.km.ndk.util.Constants;
+import com.example.km.ndk.data.Constants;
 
 /**循环播放一段无声音频，以提升进程优先级
  *

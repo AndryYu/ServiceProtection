@@ -6,12 +6,13 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.os.Process;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.km.ndk.R;
-import com.example.km.ndk.util.Constants;
+import com.example.km.ndk.data.Constants;
+import com.example.km.ndk.jni.NativeJNI;
 
 /**
  * 前台Service，使用startForeground
@@ -37,6 +38,18 @@ public class DaemonService extends Service {
         super.onCreate();
 
         initNotification();
+        //if(VersionUtil.isBelowLOLLIPOP()){
+            try {
+                NativeJNI jni = new NativeJNI();
+                Log.i("Android-Zhang", "ndk守护进程开始");
+                //jni.createWatcher(String.valueOf(Process.myUid()));
+                Log.e("Android-Zhang", "守护主线程");
+                //jni.connectToMonitor();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Android-Zhang", e.getMessage());
+            }
+       // }
     }
 
     /**

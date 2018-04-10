@@ -1,6 +1,6 @@
 # Android进程保活
 
-##通用方法：
+## 通用方法：
 1. onDestroy()方法重新启动当前应用<br/>
 2. 通过MediaPlayer播放一段无声音频，来提高进程优先级。<br/>
 3. 利用Notification提升权限<br/>
@@ -15,7 +15,7 @@
 
 
 ## Android 5.0以下
-1. 利用Native进程拉活<br/>
+### 1. 利用Native进程拉活<br/>
 ##### 适用范围<br/>
 该方案不受 forcestop 影响，被强制停止的应用依然可以被拉活，在 Android5.0 以下版本拉活效果非常好。
 对于 Android5.0 以上手机，系统虽然会将native进程内的所有进程都杀死，这里其实就是系统“依次”杀死进程时间与拉活逻辑执行时间赛跑的问题，如果可以跑的比系统逻辑快，依然可以有效拉起。记得网上有人做过实验，该结论是成立的，在某些 Android 5.0 以上机型有效。
@@ -36,7 +36,7 @@
 ## Android 5.0
 Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式失效。系统在 Android5.0 以上版本提供了 JobScheduler 接口，系统会定时调用该进程以使应用进行一些逻辑操作
 
-1. 利用JobScheduler机制保活
+### 1. 利用JobScheduler机制保活
 #### 简单介绍
 * JobScheduler是job的调度类，负责执行、取消任务等逻辑。
 * JobService内部使用AIDL+Handler的方式来传递消息。
@@ -53,3 +53,6 @@ Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式
   监听手机解锁实践，在屏幕锁屏时启动1个像素的Activity，在用户解锁时将Activity销毁掉。注意该Activity需设计成用户无感知。
 通过该方案，可以使进程的优先级在屏幕锁屏时间由4提升为最高优先级1.
 
+
+## 参考文献
+[Android中的各种保活1](https://blog.csdn.net/zhangweiwtmdbf/article/details/52369276)
