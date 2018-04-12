@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.example.km.ndk.MainActivity;
 import com.example.km.ndk.data.Constants;
+import com.example.km.ndk.service.DaemonService;
 import com.example.km.ndk.util.SystemUtil;
 
 /**
@@ -29,7 +30,7 @@ public class KeepJobService extends JobService {
         public boolean handleMessage(Message message) {
             Log.i("Android-Zhang", "JobService定时检查");
             if(!SystemUtil.isAppAlive(KeepJobService.this, Constants.PACKAGE_NAME)){
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DaemonService.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

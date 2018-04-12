@@ -22,7 +22,7 @@ public class DaemonStrategyXiaomi extends BaseDaemonStrategy {
 
     @Override
     public boolean onInitialization(Context context) {
-        return  initAPI20(context, false);
+        return  initAPI20(context, true);
     }
 
     @SuppressLint("Recycle")// when process dead, we should save time to restart and kill self, don`t take a waste of time to recycle

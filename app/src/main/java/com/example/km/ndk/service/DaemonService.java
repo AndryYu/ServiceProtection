@@ -42,7 +42,7 @@ public class DaemonService extends Service {
             try {
                 NativeJNI jni = new NativeJNI();
                 Log.i("Android-Zhang", "ndk守护进程开始");
-                //jni.createWatcher(String.valueOf(Process.myUid()));
+                jni.createWatcher(String.valueOf(Process.myUid()));
                 Log.e("Android-Zhang", "守护主线程");
                 //jni.connectToMonitor();
             } catch (Exception e) {

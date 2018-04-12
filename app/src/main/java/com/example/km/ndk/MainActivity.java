@@ -47,5 +47,7 @@ public class MainActivity extends AppCompatActivity {
             mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
             mJobManager.startJobScheduler();
         }
+        Intent intent = new Intent(this, DaemonService.class);
+        startService(intent);
     }
 }
