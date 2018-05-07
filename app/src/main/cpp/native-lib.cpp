@@ -233,7 +233,7 @@ Java_com_example_km_ndk_jni_NativeJNI_doDaemon21(JNIEnv *env, jobject jobj, jstr
         LOGE("parameters cannot be NULL !");
         return ;
     }
-    LOGI("doDaemon21========1");
+
     char* indicator_self_path = (char*)env->GetStringUTFChars(indicatorSelfPath, 0);
     char* indicator_daemon_path = (char*)env->GetStringUTFChars(indicatorDaemonPath, 0);
     char* observer_self_path = (char*)env->GetStringUTFChars(observerSelfPath, 0);
