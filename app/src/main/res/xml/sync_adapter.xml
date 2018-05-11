@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accountType="com.example.km.ndk.account"
+    android:contentAuthority="com.example.km.provider"
+    android:allowParallelSyncs="false"
+    android:isAlwaysSyncable="true"
+    android:supportsUploading="false"
+    android:userVisible="true"/>
+
+<!--contentAuthority 系统在进行账户同步的时候会查找 此auth的ContentProvider-->
+<!--
+    android:contentAuthority 指定要同步的ContentProvider在其AndroidManifest.xml文件中有个android:authorities属性。
+    android:accountType 表示进行同步的账号的类型。
+    android:userVisible 设置是否在“设置”中显示
+    android:supportsUploading 设置是否必须notifyChange通知才能同步
+    android:allowParallelSyncs 是否支持多账号同时同步
+    android:isAlwaysSyncable 设置所有账号的isSyncable为1
+    android:syncAdapterSettingsAction 指定一个可以设置同步的activity的Action。-->

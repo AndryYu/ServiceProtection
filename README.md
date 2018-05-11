@@ -85,6 +85,18 @@ Android5.0 以后系统对 Native 进程等加强了管理，Native 拉活方式
 至Android N(7.0)后，谷歌进一步对Doze休眠机制进行了优化，休眠机制的应用场景和使用规则进行了扩展。Doze在Android 6.0中需要将手机平行放置一段时间才能开启，在7.0中则可随时开启。</p>
 <p>因此，对于Android 5.0，JobSheduler的唤醒是非常有效的；对于Android 6.0，虽然谷歌引入了Doze模式，但通常很难真正进入Doze模式，所以JobSheduler的唤醒依然有效；对于Android 7.0，JobSheduler的唤醒会有一定的影响，我们可以在电池管理中给APP开绿色通道，防止手机Doze模式后阻止APP使用JobSheduler功能。注：如果遇到深度定制机型，这就要看运气了...</p>
 
+## 账户同步，定时唤醒
+1. 建立数据同步系统(ContentProvider)
+2. 建立Sync系统(SyncAdapter)
+    通过实现SyncAdapter这个系统服务后，利用系统的定时器对程序数据ContentProvider进行更新
+3. 建立账号系统(Account Authenticator)
+    通过建立Account，并关联SyncAdapter服务实现同步
+
+Android N（7.0）对账号同步做了变动，不能对应用进行拉活。
+
+## 利用通知监听服务
+
+
 ## 其他方法（针对当前应用不适用）
 1. 利用Activity提升权限，
   监听手机解锁实践，在屏幕锁屏时启动1个像素的Activity，在用户解锁时将Activity销毁掉。注意该Activity需设计成用户无感知。

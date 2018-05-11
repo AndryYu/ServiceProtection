@@ -29,8 +29,7 @@ public class PlayerMusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(Constants.DEBUG)
-            Log.d(TAG,TAG+"---->onCreate,启动服务");
+        Log.d(TAG,TAG+"---->PlayerMusicService,启动服务");
         mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.silent);
         mMediaPlayer.setLooping(true);
     }
@@ -41,8 +40,7 @@ public class PlayerMusicService extends Service {
             @Override
             public void run() {
                 if(mMediaPlayer != null){
-                    if(Constants.DEBUG)
-                        Log.d(TAG,"启动后台播放音乐");
+                    Log.d(TAG,"启动后台播放音乐");
                     mMediaPlayer.start();
                 }
             }
@@ -54,12 +52,11 @@ public class PlayerMusicService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if(mMediaPlayer != null){
-            if(Constants.DEBUG)
-                Log.d(TAG,"关闭后台播放音乐");
+            Log.d(TAG,"关闭后台播放音乐");
             mMediaPlayer.stop();
         }
-        if(Constants.DEBUG)
-            Log.d(TAG,TAG+"---->onCreate,停止服务");
+
+        Log.d(TAG,TAG+"---->onCreate,停止服务");
         // 重启自己
         Intent intent = new Intent(getApplicationContext(),PlayerMusicService.class);
         startService(intent);
